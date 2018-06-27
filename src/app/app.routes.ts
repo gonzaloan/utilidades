@@ -9,7 +9,7 @@ import { TagsGeneratorComponent } from './components/tags-generator/tags-generat
 const APP_ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'run', component: RunComponent },
-    { path: 'tags-generator', component: TagsGeneratorComponent}
+    { path: 'tags-generator', component: TagsGeneratorComponent},
     { path: '', pathMatch: 'full', redirectTo: 'home' },
     { path: '**', component: NotfoundComponent },
 
