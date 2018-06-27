@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../_animations/router.animations';
 
-
-
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-tags-generator',
+  templateUrl: './tags-generator.component.html',
+  styleUrls: ['./tags-generator.component.css'],
   animations: [routerTransition()],
   host: {'[@routerTransition]': ''}
 })
-export class HomeComponent implements OnInit {
+export class TagsGeneratorComponent implements OnInit {
 
   constructor() { }
 

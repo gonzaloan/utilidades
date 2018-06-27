@@ -1,3 +1,15 @@
-<p>
-  run works!
-</p>
+<div class="container">
+  <h3>Obtener Digito Verificador</h3>
+  <div class="input-group mt-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">RUN:</span>
+    </div>
+    <input type="text" class="form-control-lg mr-4" #run placeholder="Ingrese RUN" aria-label="run" (keyup)="validaRut(run.value)" >
+    <span class="form-control-lg input-sm">{{dv}}</span>
+
+
+    
+  </div>
+  <hr>
+  <h1>Mensaje: {{errores}}</h1>
+</div>
