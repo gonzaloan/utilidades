@@ -1,3 +1,29 @@
-<p>
-  tags-generator works!
-</p>
+<div class="container">
+  <h3>Si debes generar un tag para comentar tu aplicación.
+    <small class="text-muted">Abajo se mostrará el resultado</small>
+  </h3>
+
+  <div class="form-inline mt-5">
+    <label for="requerimientoInput" class="mr-1">Requerimiento:</label>
+    <input type="text" class="form-control mb-2 mr-sm-2" #nroRequerimiento placeholder="Ej 0666_2015">
+
+    <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text">@</div>
+      </div>
+      <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2" (click)="validaTag(nroRequerimiento)">Submit</button>
+  </div>
+
+  <hr class="mt-5">
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Resultado</h1>
+      <textarea class="form-control monospace" id="exampleFormControlTextarea1" rows="15">{{textoFinal}}</textarea>
+    </div>
+  </div>
+</div>
