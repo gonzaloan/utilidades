@@ -15,8 +15,6 @@ import { APP_ROUTING } from './app.routes';
 import { ValidarunPipe } from './pipes/validarun.pipe';
 import { TagsGeneratorComponent } from './components/tags-generator/tags-generator.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

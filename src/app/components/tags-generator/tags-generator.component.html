@@ -1,29 +1,55 @@
-<div class="container">
+<div class="container mt-5">
   <h3>Si debes generar un tag para comentar tu aplicación.
     <small class="text-muted">Abajo se mostrará el resultado</small>
   </h3>
 
-  <div class="form-inline mt-5">
-    <label for="requerimientoInput" class="mr-1">Requerimiento:</label>
-    <input type="text" class="form-control mb-2 mr-sm-2" #nroRequerimiento placeholder="Ej 0666_2015">
-
-    <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-    <div class="input-group mb-2 mr-sm-2">
-      <div class="input-group-prepend">
-        <div class="input-group-text">@</div>
-      </div>
-      <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
+  <hr>
+  <div class="row">
+    <div class="col-md-3">
+      <label class="mr-1">Identificador Requerimiento: </label>
+      <input type="text" class="form-control mb-2 mr-sm-2" #nroRequerimiento placeholder="Ej 0666_2015">
     </div>
-
-    <button type="submit" class="btn btn-primary mb-2" (click)="validaTag(nroRequerimiento)">Submit</button>
+    <div class="col-md-3">
+      <label class="mr-1">Usuario Cliente: </label>
+      <input type="text" class="form-control mb-2 mr-sm-2" #usuarioCliente placeholder="Pedrito Pedreros">
+    </div>
+    <div class="col-md-3">
+      <label class="mr-1">Fecha Requerimiento: </label>
+      <input type="date" class="form-control mb-2 mr-sm-2" #fechaInicio ng-model="todayDate | date:'dd-MM-yyyy'">
+    </div>
+    <div class="col-md-3">
+      <label class="mr-1">Responsable: </label>
+      <input type="text" class="form-control mb-2 mr-sm-2" #responsable placeholder="Yo">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label class="mr-1">Empresa del Responsable: </label>
+      <input type="text" class="form-control mb-2 mr-sm-2" #empresaResponsable value="Zeke">
+    </div>
+    <div class="col-md-9">
+      <label class="mr-1">Descripción del Requerimiento: </label>
+      <textarea class="form-control" rows="3" #descripcionRequerimiento></textarea>
+    </div>
+  </div>
+  <div class="row center mt-5 ml-5 mr-5 mb-5">
+    <button type="submit" class="btn btn-primary btn-block mb-2" (click)="validaTag(usuarioCliente,nroRequerimiento,empresaResponsable,responsable,descripcionRequerimiento,fechaInicio)">Generar Tag</button>
   </div>
 
   <hr class="mt-5">
 
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4">Resultado</h1>
-      <textarea class="form-control monospace" id="exampleFormControlTextarea1" rows="15">{{textoFinal}}</textarea>
+
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <h1 class="display-4">Resultado
+            <small *ngIf="textoFinal" class="littleText">Puedes editarlo si lo requieres</small>
+          </h1>
+          <textarea class="form-control monospace" #textAreaResultado rows="10">{{textoFinal}}</textarea>
+          <span (click)="copyToClipboard(textAreaResultado)"> copiar</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

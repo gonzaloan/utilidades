@@ -4,22 +4,26 @@ import { routerTransition } from '../../_animations/router.animations';
 @Component({
   selector: 'app-tags-generator',
   templateUrl: './tags-generator.component.html',
-  styleUrls: ['./tags-generator.component.css'],
-  animations: [routerTransition()],
-  host: { '[@routerTransition]': '' }
+  styleUrls: ['./tags-generator.component.css']
 })
 export class TagsGeneratorComponent implements OnInit {
 
   tagRequerimiento: string;
   textoFinal: string;
+
   constructor() { }
 
   ngOnInit() {
+
   }
 
+  copyToClipboard(textoFinal){
+    textoFinal.select();
+    document.execCommand("copy");
+    textoFinal.setSelectionRange(0,0);
+  }
   fillWithChar(largo: number, charAdded: string, textoEntrada?: string) {
     if (!textoEntrada) { textoEntrada = ''; }
-
     for (let i = textoEntrada.length; i < largo; i++) {
       textoEntrada = textoEntrada.concat(charAdded);
     }
@@ -28,77 +32,70 @@ export class TagsGeneratorComponent implements OnInit {
   }
   setDescriptionInLines(largo: number, textoDescripcion: string) {
     const LINEA_DESCRIPCION = " DESCRIPCION MANTENCION : ";
-    
+
     textoDescripcion = LINEA_DESCRIPCION + textoDescripcion;
-    let textoFinalFormateado:string = '';
-    if( (LINEA_DESCRIPCION+textoDescripcion).length > 92){
+    let textoFinalFormateado: string = '';
+
+    if ((LINEA_DESCRIPCION + textoDescripcion).length > largo) {
 
       //buscamos un espacio en el sustring
       let seguirCortandoTexto = true;
       let posicion_inicial = 0;
-      let posicion_final:number = 91;
-      while(seguirCortandoTexto){
-        //seteamos la posicion final que sea distinta a una letra
-        while(textoDescripcion.charAt(posicion_final) != ' '){
-          
-          posicion_final--;
-          console.log("encontré un espacio vacio");
-        }
-        console.log("========================================");
-        console.log("posicion_ini: [" + posicion_inicial + "]");
-        console.log("posicion fin: ["+ posicion_final+"]");
-        textoFinalFormateado = textoFinalFormateado + textoDescripcion.slice(posicion_inicial,posicion_final);
-        textoFinalFormateado = this.fillWithChar(92, " ", textoFinalFormateado) + "\n*";
-        console.log("Linea Formateada ["+ textoFinalFormateado +"]");
-        //cmabiamos nuevas posiciones
-        posicion_inicial = posicion_final;
-        console.log("nueva posicion inicial: ["+posicion_inicial+"]");
-        console.log("textoDescripcion.length: ["+textoDescripcion.length+"]");
-        console.log("pos fin + pos fin : ["+posicion_final * 2+"]");
-        if(textoDescripcion.length >  (posicion_final + 92) ){
-          posicion_final = posicion_final + 92;
-          console.log("Es menor... así que pos_final: ["+ posicion_final+"]");
-        }else{
-          posicion_final = textoDescripcion.length;
+      let posicion_final: number = 93;
+      let linea_actual = '';
+      while (seguirCortandoTexto) {
+
+        if (posicion_final == textoDescripcion.length) {
           seguirCortandoTexto = false;
         }
+        //Buscar ultimo espacio vacio.
+        while (textoDescripcion.charAt(posicion_final) != ' ') {
+          if (!seguirCortandoTexto) break;
+          posicion_final--;
+        }
+        linea_actual = textoDescripcion.slice(posicion_inicial, posicion_final);
+        linea_actual = linea_actual.replace('\t', ' ');
+        linea_actual = linea_actual.replace('\n', ' ');
+        linea_actual = this.fillWithChar(92, " ", linea_actual) + "\n*";
+        textoFinalFormateado = textoFinalFormateado + linea_actual;
+        posicion_inicial = posicion_final;
+        if (textoDescripcion.length > (posicion_final + largo)) {
+          posicion_final = posicion_final + largo;
+        } else {
+          posicion_final = textoDescripcion.length;
+        }
       }
-      
+    } else {
+      let linea_actual = textoDescripcion.slice(0, 93);
+      linea_actual = linea_actual.replace('\t', ' ');
+      linea_actual = linea_actual.replace('\n', ' ');
+      linea_actual = this.fillWithChar(92, " ", linea_actual) + "\n*";
+      textoFinalFormateado = textoFinalFormateado + linea_actual;
     }
     return textoFinalFormateado;
   }
-  validaTag(requerimientoInput) {
+  validaTag(usuarioCliente, requerimientoInput, empresaResponsable, responsable, descripcion, fechaInicio) {
 
     const OPENTAG = "/*";
-    //largo 93
+    const CLOSETAG = "/";
     const CHAR_ASTERISCO = "*";
     const SALTO_LINEA = "\n*";
     const LINEA_REG_MANTENCION = " REGISTRO DE MANTENCION.";
-    const LINEA_RESPONSABLE =  " RESPONSABLE REGISTRO   : " + requerimientoInput.value + " / REQ: " +requerimientoInput.value +" / FECHA: 27-06-2018";
-    const LINEA_RESPONSABLE_NOS = " RESPONSABLE " + requerimientoInput.value + "    : " + requerimientoInput.value;
-    const LINEA_DESCRIPCION = "Al ingresar un contrayente, ya sea 1 o 2 al momento de hacer eserva de AUC, sistema marca nacionalidad 'Extranjero' al	ser Nacionalizado, y en este caso debería marcarla como Chileno. Al ingresar un contrayente, ya sea 1 o 2 al momento de hacer eserva de AUC, sistema marca nacionalidad 'Extranjero' al	ser Nacionalizado, y en este caso debería marcarla como Chileno."; 
+    const LINEA_RESPONSABLE = " RESPONSABLE REGISTRO   : " + this.capitalizeName(usuarioCliente.value) + " / REQ: " + requerimientoInput.value.toUpperCase() + " / FECHA: " + fechaInicio.value.toLocaleString();
+    const LINEA_RESPONSABLE_NOS = " RESPONSABLE " + empresaResponsable.value.toUpperCase() + "    : " + responsable.value.toUpperCase();
     this.textoFinal =
       OPENTAG + SALTO_LINEA +
       this.fillWithChar(92, CHAR_ASTERISCO) + SALTO_LINEA +
       this.fillWithChar(92, " ", LINEA_REG_MANTENCION) + SALTO_LINEA +
-      this.fillWithChar(92, " ", LINEA_RESPONSABLE) + SALTO_LINEA+
-      this.fillWithChar(92, " ", LINEA_RESPONSABLE_NOS) + SALTO_LINEA + 
-      this.setDescriptionInLines(92,LINEA_DESCRIPCION) + SALTO_LINEA;
-      
-    this.tagRequerimiento =
-      `
-/*
-*********************************************************************************************
-* REGISTRO DE MANTENCION.																    *
-*  RESPONSABLE REGISTRO   :	XIMENA AMARO / REQ: 0458_2018 / FECHA: 27-06-2018               *
-*  RESPONSABLE ZEKE	  	  : GONZALO MUÑOZ 				                                    *
-*  DESCRIPCION MANTENCION :	Al ingresar un contrayente, ya sea 1 o 2 al momento de hacer    *
-*  							Reserva de AUC, sistema marca nacionalidad 'Extranjero' al      *
-*  							ser Nacionalizado, y en este caso debería marcarla como 	    *
-*  							Chileno.													    *
-*********************************************************************************************
-*/
-`;
+      this.fillWithChar(92, " ", LINEA_RESPONSABLE) + SALTO_LINEA +
+      this.fillWithChar(92, " ", LINEA_RESPONSABLE_NOS) + SALTO_LINEA +
+      this.setDescriptionInLines(92, descripcion.value) +
+      this.fillWithChar(92, CHAR_ASTERISCO) + SALTO_LINEA + CLOSETAG;
+  }
+
+
+  capitalizeName(name) {
+    return name.replace(/\b(\w)/g, s => s.toUpperCase());
   }
 
 }
