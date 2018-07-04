@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../_animations/router.animations';
-
+import { AlertService } from 'ngx-alerts';
 @Component({
   selector: 'app-tags-generator',
   templateUrl: './tags-generator.component.html',
@@ -10,17 +9,20 @@ export class TagsGeneratorComponent implements OnInit {
 
   tagRequerimiento: string;
   textoFinal: string;
-
-  constructor() { }
+  copied: boolean = false;
+  INITag: string;
+  INITagCopied: boolean = false;
+  constructor(private alertService: AlertService) { }
 
   ngOnInit() {
 
   }
 
-  copyToClipboard(textoFinal){
+  copyToClipboard(textoFinal) {
     textoFinal.select();
     document.execCommand("copy");
-    textoFinal.setSelectionRange(0,0);
+    textoFinal.setSelectionRange(0, 0);
+    this.alertService.success('Se ha copiado el texto en el portapapeles.');
   }
   fillWithChar(largo: number, charAdded: string, textoEntrada?: string) {
     if (!textoEntrada) { textoEntrada = ''; }
@@ -76,6 +78,8 @@ export class TagsGeneratorComponent implements OnInit {
   }
   validaTag(usuarioCliente, requerimientoInput, empresaResponsable, responsable, descripcion, fechaInicio) {
 
+    this.copied = false;
+    this.INITagCopied = false;
     const OPENTAG = "/*";
     const CLOSETAG = "/";
     const CHAR_ASTERISCO = "*";
@@ -83,6 +87,7 @@ export class TagsGeneratorComponent implements OnInit {
     const LINEA_REG_MANTENCION = " REGISTRO DE MANTENCION.";
     const LINEA_RESPONSABLE = " RESPONSABLE REGISTRO   : " + this.capitalizeName(usuarioCliente.value) + " / REQ: " + requerimientoInput.value.toUpperCase() + " / FECHA: " + fechaInicio.value.toLocaleString();
     const LINEA_RESPONSABLE_NOS = " RESPONSABLE " + empresaResponsable.value.toUpperCase() + "    : " + responsable.value.toUpperCase();
+    const INICIALES = this.getIniciales(responsable.value).toUpperCase();
     this.textoFinal =
       OPENTAG + SALTO_LINEA +
       this.fillWithChar(92, CHAR_ASTERISCO) + SALTO_LINEA +
@@ -91,11 +96,22 @@ export class TagsGeneratorComponent implements OnInit {
       this.fillWithChar(92, " ", LINEA_RESPONSABLE_NOS) + SALTO_LINEA +
       this.setDescriptionInLines(92, descripcion.value) +
       this.fillWithChar(92, CHAR_ASTERISCO) + SALTO_LINEA + CLOSETAG;
+
+
+    this.INITag = '//INI//' + 'REQ: ' + requerimientoInput.value.toUpperCase() + '//' + INICIALES + '//' + fechaInicio.value.toLocaleString();
   }
 
 
   capitalizeName(name) {
     return name.replace(/\b(\w)/g, s => s.toUpperCase());
   }
+  getIniciales(name) {
+    let cuentaPalabras = name.trim().split(' ');
+    name = '';
+    cuentaPalabras.forEach(element => {
+      name = name + element.charAt(0);
+    });
+    return name;
 
+  }
 }

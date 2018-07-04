@@ -1,28 +1,27 @@
-<div class="container mt-5">
-  <h3>Obtener Digito Verificador</h3>
-  <div class="input-group mt-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">RUN:</span>
+<div id="wrapper">
+  <div class="container mt-5 centerDiv">
+    <h3>Obtener Digito Verificador</h3>
+    <div class="input-group mt-3 centerDiv">
+      <div class="vcenter">
+        <input maxlength=10 type="text" class="form-control-lg mr-4" #run placeholder="Ingrese RUN" aria-label="run" (keyup)="validaRut(run.value)"
+          (keydown.enter)="mostrarDatosRun()">
+        <i class="fas fa-minus"></i>
+        <span class="form-control-lg input-sm" [ngClass]="{'alert alert-success': isOkRun}">{{dv}}</span>
+      </div>
     </div>
-    <div class="vcenter">
-      <input maxlength=10 type="text" class="form-control-lg mr-4" #run placeholder="Ingrese RUN" aria-label="run" (keyup)="validaRut(run.value)"
-        (keydown.enter)="mostrarDatosRun()">
-      <i class="fas fa-minus"></i>
-      <span class="form-control-lg input-sm" [ngClass]="{'alert alert-success': isOkRun}">{{dv}}</span>
+    <hr>
+    <div class="row vcenter">
+      <div class="alert alert-danger" role="alert" *ngIf="errores">
+        {{errores}}
+      </div>
     </div>
-  </div>
-  <hr>
-  <div class="alert alert-danger" role="alert" *ngIf="errores">
-    {{errores}}
-  </div>
-  <div class="card" style="width: 18rem;">
-    <div class="card-header">
-      RUN: {{run.value}} - {{dv}}
+    <br>
+    <div class="row vcenter">
+      <div class="card " style="width: 18rem;">
+        <div class="card-header">
+          RUN: {{run.value}} - {{dv}}
+        </div>
+      </div>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
   </div>
 </div>

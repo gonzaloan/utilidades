@@ -1,8 +1,9 @@
 <div>
   <app-navbar></app-navbar>
 </div>
-<div>
+<div [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
   <div class="h-100" id="main">
-    <router-outlet></router-outlet>
+    <ngx-alerts></ngx-alerts>
+    <router-outlet #o="outlet"></router-outlet>
   </div>
 </div>

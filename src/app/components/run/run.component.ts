@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../_animations/router.animations';
-
 
 @Component({
   selector: 'app-run',
   templateUrl: './run.component.html',
-  styleUrls: ['./run.component.css'],
-  animations: [routerTransition()],
-  host: { '[@routerTransition]': '' }
+  styleUrls: ['./run.component.css']
 })
 export class RunComponent implements OnInit {
 
@@ -40,6 +36,12 @@ export class RunComponent implements OnInit {
         this.isOkRun = false;
         this.dv = 'DV';
       }
+    }
+
+    if (run.length == 0) {
+      this.errores = '';
+      this.isOkRun = false;
+      this.dv = 'DV';
     }
   }
 

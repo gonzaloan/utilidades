@@ -18,3 +18,9 @@ html, body {
     clear:both;
     padding-top:20px;
   } 
+  router-outlet ~ * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  
