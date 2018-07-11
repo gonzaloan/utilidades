@@ -1,26 +1,27 @@
-<div id="wrapper">
-  <div class="container mt-5 centerDiv">
-    <h3>Obtener Digito Verificador</h3>
-    <div class="input-group mt-3 centerDiv">
-      <div class="vcenter">
-        <input maxlength=10 type="text" class="form-control-lg mr-4" #run placeholder="Ingrese RUN" aria-label="run" (keyup)="validaRut(run.value)"
-          (keydown.enter)="mostrarDatosRun()">
-        <i class="fas fa-minus"></i>
-        <span class="form-control-lg input-sm" [ngClass]="{'alert alert-success': isOkRun}">{{dv}}</span>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-sm-12 col-md-12-col-lg-12 mt-3 text-center">
+      <h3>Obtener Digito Verificador</h3>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="row input-group mt-3 justify-content-md-center">
+        <div class="col-sm-12 col-md-8 col-lg-4 text-center">
+          <input maxlength=10 type="text" class="form-control-lg mr-4" #run placeholder="Ingrese RUN" aria-label="run" (keyup)="validaRut(run.value)"
+            (keydown.enter)="mostrarDatosRun()">
+        </div>
+        <div class="col-sm-12 col-md-1 col-lg-1 mt-3 text-center">
+          <i class="fas fa-minus"></i>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-auto mt-3 text-center">
+          <span class="form-control-lg input-sm" [ngClass]="{'alert alert-success': isOkRun}">{{dv}}</span>
+        </div>
       </div>
+
     </div>
     <hr>
-    <div class="row vcenter">
+    <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="alert alert-danger" role="alert" *ngIf="errores">
         {{errores}}
-      </div>
-    </div>
-    <br>
-    <div class="row vcenter">
-      <div class="card " style="width: 18rem;">
-        <div class="card-header">
-          RUN: {{run.value}} - {{dv}}
-        </div>
       </div>
     </div>
   </div>

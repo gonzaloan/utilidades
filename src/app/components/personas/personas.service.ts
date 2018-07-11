@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PersonasService {
@@ -10,12 +9,10 @@ export class PersonasService {
   constructor(private http: HttpClient) { }
   
   getPersonas() {
-    
-    console.log(this.http.get(this.urlEndpoint));
-    return this.http.get(this.urlEndpoint).map((respuesta:any) => {
-      this.personas = respuesta;
-      console.log(this.personas);
-      return this.personas;
-    });
+    return this.http.get(this.urlEndpoint)
+      .pipe( map( data => {
+        //acá se hacen muchos procesos
+        return data['content'];
+      }));
   }
 }
