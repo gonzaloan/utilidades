@@ -10,6 +10,7 @@ export class RunComponent implements OnInit {
   errores: string = '';
   dv: any = 'DV';
   isOkRun: boolean = false;
+  
   constructor() { }
 
   ngOnInit() {

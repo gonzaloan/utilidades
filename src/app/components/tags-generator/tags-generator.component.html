@@ -4,38 +4,39 @@
   </h3>
 
   <hr>
-  <div class="row">
-    <div class="col-md-3">
-      <label class="mr-1">Identificador Requerimiento: </label>
-      <input type="text" class="form-control mb-2 mr-sm-2" #nroRequerimiento placeholder="Ej 0666_2015" value="REQ_">
+  <form (ngSubmit)="validaTag(usuarioCliente,nroRequerimiento,empresaResponsable,responsable,descripcionRequerimiento,fechaInicio)"> 
+    <div class="row">
+      <div class="col-md-3">
+        <label class="mr-1">Identificador Requerimiento: </label>
+        <input type="text" ng-model="nroReq" class="form-control mb-2 mr-sm-2" #nroRequerimiento required minlength="5" maxlength="9" placeholder="Ej 0666_2015">
+      </div>
+      <div class="col-md-3">
+        <label class="mr-1">Usuario Cliente: </label>
+        <input type="text" class="form-control mb-2 mr-sm-2" #usuarioCliente required  minlength="5" maxlength="30" placeholder="Pedrito Pedreros">
+      </div>
+      <div class="col-md-3">
+        <label class="mr-1">Fecha Requerimiento: </label>
+        <input type="date" class="form-control mb-2 mr-sm-2" #fechaInicio minlength="10" maxlength="10" required ng-model="todayDate | date:'dd-MM-yyyy'">
+      </div>
+      <div class="col-md-3">
+        <label class="mr-1">Responsable: </label>
+        <input type="text" class="form-control mb-2 mr-sm-2" #responsable minlength="5" maxlength="30" required placeholder="Yo">
+      </div>
     </div>
-    <div class="col-md-3">
-      <label class="mr-1">Usuario Cliente: </label>
-      <input type="text" class="form-control mb-2 mr-sm-2" #usuarioCliente placeholder="Pedrito Pedreros">
+    <div class="row">
+      <div class="col-md-3">
+        <label class="mr-1">Empresa del Responsable: </label>
+        <input type="text" class="form-control mb-2 mr-sm-2" #empresaResponsable minlength="4" maxlength="4" required value="ZEKE">
+      </div>
+      <div class="col-md-9">
+        <label class="mr-1">Descripción del Requerimiento: </label>
+        <textarea class="form-control" rows="3" #descripcionRequerimiento minlength="5" maxlength="300" required></textarea>
+      </div>
     </div>
-    <div class="col-md-3">
-      <label class="mr-1">Fecha Requerimiento: </label>
-      <input type="date" class="form-control mb-2 mr-sm-2" #fechaInicio ng-model="todayDate | date:'dd-MM-yyyy'">
+    <div class="row center mt-5 ml-5 mr-5 mb-5">
+      <button type="submit" class="btn btn-primary btn-block mb-2" >Generar Tag</button>
     </div>
-    <div class="col-md-3">
-      <label class="mr-1">Responsable: </label>
-      <input type="text" class="form-control mb-2 mr-sm-2" #responsable placeholder="Yo">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <label class="mr-1">Empresa del Responsable: </label>
-      <input type="text" class="form-control mb-2 mr-sm-2" #empresaResponsable value="Zeke">
-    </div>
-    <div class="col-md-9">
-      <label class="mr-1">Descripción del Requerimiento: </label>
-      <textarea class="form-control" rows="3" #descripcionRequerimiento></textarea>
-    </div>
-  </div>
-  <div class="row center mt-5 ml-5 mr-5 mb-5">
-    <button type="submit" class="btn btn-primary btn-block mb-2" (click)="validaTag(usuarioCliente,nroRequerimiento,empresaResponsable,responsable,descripcionRequerimiento,fechaInicio)">Generar Tag</button>
-  </div>
-
+  </form>
   <hr class="mt-5">
 
   <div class="jumbotron jumbotron-fluid">

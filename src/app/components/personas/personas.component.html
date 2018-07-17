@@ -4,58 +4,50 @@
 </div>
 <div id="wrapper" *ngIf="!loading && !error" class="animated fadeIn">
   <div class="container mt-5 centerDiv">
-    <h3>Mostrar Runes</h3>
-    <div class="btn-group" role="group">
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <div class="input-group-prepend">
-          <div class="input-group-text mr-1">Estado Civil: </div>
-        </div>
-        <label class="btn btn-secondary active">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked> Cualquiera
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option2" autocomplete="off"> Casado/a
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option3" autocomplete="off"> Soltero/a
-        </label>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h3>Mostrar Runes</h3>
       </div>
     </div>
-    <div class="btn-group ml-5" role="group">
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <div class="input-group-prepend">
-          <div class="input-group-text mr-1">Estado Civil: </div>
+    <div class="row">
+      <div class="col-md-12 col-lg-12 text-center">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" (click)="filterResults('nac_amb')"class="btn btn-outline-dark" >Ambos</button>
+          <button type="button" (click)="filterResults('nac_cl')"class="btn btn-outline-dark" >Chilenos</button>
+          <button type="button" (click)="filterResults('nac_ext')"class="btn btn-outline-dark" >Extranjeros</button>
         </div>
-        <label class="btn btn-secondary active">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked> Cualquiera
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option2" autocomplete="off"> Casado/a
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option3" autocomplete="off"> Soltero/a
-        </label>
+      </div>
+      <div class="col-md-12 col-lg-12 text-center mt-5">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-outline-dark">Left</button>
+          <button type="button" class="btn btn-outline-dark">Middle</button>
+          <button type="button" class="btn btn-outline-dark">Right</button>
+        </div>
       </div>
     </div>
-    <table class="table table-hover table-dark mt-5 m-5">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">RUN</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Estado civil</th>
-          <th scope="col">Nacionalidad</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let persona of personas; let i = index" (click)="copyToClipboard(persona.run)">
-          <td>{{i+1}}</td>
-          <td>{{persona.run}} - {{persona.dv}}</td>
-          <td>{{persona.nombre}} {{persona.apellido_paterno}} {{persona.apellido_materno}}</td>
-          <td>{{persona.estado_civil}}</td>
-          <td>{{persona.nacionalidad}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-hover table-dark mt-5 m-5">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">RUN</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Estado civil</th>
+              <th scope="col">Nacionalidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let persona of personas; let i = index" (click)="copyToClipboard(persona.run)">
+              <td>{{i+1}}</td>
+              <td>{{persona.run}} - {{persona.dv}}</td>
+              <td>{{persona.nombre}} {{persona.apellido_paterno}} {{persona.apellido_materno}}</td>
+              <td>{{persona.estado_civil}}</td>
+              <td>{{persona.nacionalidad}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <hr>
   </div>

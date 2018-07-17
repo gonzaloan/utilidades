@@ -1,27 +1,18 @@
 # Utilidades
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
+Generado con [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
 
-## Development server
+## Servidor de desarrollo   
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Corre `ng serve` para un servidor dev. Navegar a `http://localhost:4200/`. 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Correr `ng build` para construir el proyecto. Los artefactos serán guardados en  `dist/`. Agregar `-prod` al comando build para producción.
 
-## Running unit tests
+##Objetivo Utilidades
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+El objetivo de esta aplicación es proporcionar un repositorio de utilidades para el día a día.
+-   Validación de dígito verificador de RUT: Sólo se debe escribir el rut, y a medida de que sea válido, aparecerá su digito verificador.
+-   Búsqueda de RUN: Se conecta a la API de datos de personas. Aquí se muestran 1000 datos (que se actualizan o son distintos si se refresca la página). Se puede filtrar por nacionalidad Chilena/Extranjera, y si son Casado/Soltero.
+-   Generador de tags: Cuando se realiza un requerimiento, se debe marcar el código con el número de requerimiento y datos sobre lo que se está haciendo. Este generador toma esos datos y los muestra en forma de TAGS, que luego pueden copiarse al código fuente. 

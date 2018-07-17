@@ -77,7 +77,7 @@ export class TagsGeneratorComponent implements OnInit {
     return textoFinalFormateado;
   }
   validaTag(usuarioCliente, requerimientoInput, empresaResponsable, responsable, descripcion, fechaInicio) {
-
+    
     this.copied = false;
     this.INITagCopied = false;
     const OPENTAG = "/*";
