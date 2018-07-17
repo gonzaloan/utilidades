@@ -10,7 +10,7 @@ Corre `ng serve` para un servidor dev. Navegar a `http://localhost:4200/`.
 
 Correr `ng build` para construir el proyecto. Los artefactos serán guardados en  `dist/`. Agregar `-prod` al comando build para producción.
 
-##Objetivo Utilidades
+## Objetivo Utilidades
 
 El objetivo de esta aplicación es proporcionar un repositorio de utilidades para el día a día.
 -   Validación de dígito verificador de RUT: Sólo se debe escribir el rut, y a medida de que sea válido, aparecerá su digito verificador.
