@@ -15,4 +15,27 @@ export class PersonasService {
         return data['content'];
       }));
   }
+
+  getPersonasFilter(nacionalidad:string, estadoCivil:string) {
+    if(nacionalidad == undefined){
+      nacionalidad = '';
+    }
+    if(estadoCivil == undefined){
+      estadoCivil = '';
+    }
+    let url = `${this.urlEndpoint}filter?nacionalidad=${nacionalidad}&estado_civil=${estadoCivil}`;
+    console.log(url);
+    return this.http.get(url)
+      .pipe( map( data => {
+        return data;
+      }));
+  }
+
+  getPersonaRun(run:string){
+    let url = `${this.urlEndpoint}buscar/${run}`;
+    return this.http.get(url)
+    .pipe( map( data => {
+      return data;
+    }));
+  }
 }

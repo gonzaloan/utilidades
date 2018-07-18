@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { PersonasService } from '../personas/personas.service';
 
 @Component({
   selector: 'app-run',
   templateUrl: './run.component.html',
   styleUrls: ['./run.component.css']
 })
-export class RunComponent implements OnInit {
-
+export class RunComponent{
+  loading = false;
   errores: string = '';
   dv: any = 'DV';
   isOkRun: boolean = false;
-  
-  constructor() { }
-
-  ngOnInit() {
-  }
+  persona: any[] = null;
+  constructor(public _persona: PersonasService) { }
 
   validaRut(run: string) {
     if (run.length < 7) {
@@ -46,11 +44,22 @@ export class RunComponent implements OnInit {
     }
   }
 
-  mostrarDatosRun() {
+  mostrarDatosRun(run:string) {
+   
     if (this.isOkRun) {
       {
+        this.loading = true;
         this.errores = '';
-
+        this._persona.getPersonaRun(run).subscribe((data: any) => {
+          console.log(data);
+          this.persona = data;
+          this.loading = false;
+        }, (error) => {
+          this.errores = 'Rut no tiene datos.';
+          this.persona = null;
+          this.loading = false;
+          console.log(error);
+        });
       }
     }
   }

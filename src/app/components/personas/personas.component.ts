@@ -11,6 +11,8 @@ export class PersonasComponent implements OnInit {
   personas: any[] = [];
   loading: boolean;
   error: boolean;
+  nacionalidad:string;
+  estadoCivil:string;
 
   constructor(public _persona: PersonasService, private alertService: AlertService) {
     this.loading = true;
@@ -29,20 +31,20 @@ export class PersonasComponent implements OnInit {
     });
   }
 
-  filterResults(tipoFiltro: string) {
-    if (tipoFiltro == 'nac_cl') {
-      this.personas = this.personas.filter(
-          persona => persona.nacionalidad == 'C'
-      );
-    }
-    if (tipoFiltro == 'nac_ext') {
-      this.personas = this.personas.filter(
-          persona => persona.nacionalidad == 'E'
-      );
-      
-    }
-    console.log(this.personas);
+  filterResults() {
+    this.loading = true;
+    
+    this._persona.getPersonasFilter(this.nacionalidad,this.estadoCivil).subscribe((data: any) => {
+      this.personas = data;
+      this.loading = false;
+    }, (error) => {
+      this.error = true;
+      this.loading = false;
+      console.log(error);
+    });
+    
   }
+  
   copyToClipboard(run) {
 
     console.log("copiando: " + run);

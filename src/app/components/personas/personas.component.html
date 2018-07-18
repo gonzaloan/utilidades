@@ -9,44 +9,55 @@
         <h3>Mostrar Runes</h3>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12 col-lg-12 text-center">
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" (click)="filterResults('nac_amb')"class="btn btn-outline-dark" >Ambos</button>
-          <button type="button" (click)="filterResults('nac_cl')"class="btn btn-outline-dark" >Chilenos</button>
-          <button type="button" (click)="filterResults('nac_ext')"class="btn btn-outline-dark" >Extranjeros</button>
-        </div>
+    <div class="row mt-5 container">
+      <div class="col-md-12 col-lg-5 mt-2">
+        <label for="nacionalidad">Nacionalidad</label>
+        <select id="nacionalidad" class="form-control" [(ngModel)]="nacionalidad">
+          <option class="dropdown-item">Ambos</option>
+          <option class="dropdown-item">Chilenos</option>
+          <option class="dropdown-item">Extranjeros</option>
+        </select>
       </div>
-      <div class="col-md-12 col-lg-12 text-center mt-5">
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-outline-dark">Left</button>
-          <button type="button" class="btn btn-outline-dark">Middle</button>
-          <button type="button" class="btn btn-outline-dark">Right</button>
-        </div>
+      <div class="col-md-12 col-lg-2 mt-2">
+        <button type="button" class="btn btn-dark btn-lg" (click)="filterResults()" placeholder="Buscar">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+      <div class="col-md-12 col-lg-5 mt-2">
+        <label for="estadoCivil">Estado Civil</label>
+        <select id="estadoCivil" class="form-control" [(ngModel)]="estadoCivil">
+          <option class="dropdown-item">Cualquiera</option>
+          <option class="dropdown-item">Soltero</option>
+          <option class="dropdown-item">Casado</option>
+        </select>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-hover table-dark mt-5 m-5">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">RUN</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Estado civil</th>
-              <th scope="col">Nacionalidad</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let persona of personas; let i = index" (click)="copyToClipboard(persona.run)">
-              <td>{{i+1}}</td>
-              <td>{{persona.run}} - {{persona.dv}}</td>
-              <td>{{persona.nombre}} {{persona.apellido_paterno}} {{persona.apellido_materno}}</td>
-              <td>{{persona.estado_civil}}</td>
-              <td>{{persona.nacionalidad}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive-sm">
+          <table class="table table-hover table-dark mt-5 m-5">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">RUN</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Estado civil</th>
+                <th scope="col">Nacionalidad</th>
+                <th scope="col">Cambiar Estado Civil</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let persona of personas; let i = index" (click)="copyToClipboard(persona.run)">
+                <td>{{i+1}}</td>
+                <td>{{persona.run}} - {{persona.dv}}</td>
+                <td>{{persona.nombre}} {{persona.apellido_paterno}} {{persona.apellido_materno}}</td>
+                <td>{{persona.estado_civil}}</td>
+                <td>{{persona.nacionalidad}}</td>
+                <td><button type="button" class="btn btn-outline-light btn-sm">Cambiar Estado Civil</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <hr>

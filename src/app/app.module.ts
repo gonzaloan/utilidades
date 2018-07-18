@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -38,6 +38,7 @@ import { PersonasService } from './components/personas/personas.service';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
     AlertModule.forRoot({maxMessages: 3, timeout: 5000}),
     APP_ROUTING
   ],
