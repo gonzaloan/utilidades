@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 
 import 'rxjs/Rx';
 import { Http, Headers} from "@angular/http";
+import { AppSettings } from '../../app.settings';
 
 @Injectable()
 export class TagsGeneratorService {
-  private urlEndpoint: string = 'http://localhost:8080/api/files/read';
+  private urlEndpoint: string = AppSettings.API_ENDPOINT + 'files/read';
 
   constructor(private http:Http){ }
  

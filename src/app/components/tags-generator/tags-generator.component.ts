@@ -11,7 +11,7 @@ import { TagsGeneratorService } from './tags-generator.service';
   styleUrls: ['./tags-generator.component.css']
 })
 export class TagsGeneratorComponent {
-
+  loading:boolean = false;
   percentage: number;
   tagRequerimiento: string;
   textoFinal: string;
@@ -34,6 +34,7 @@ export class TagsGeneratorComponent {
 
   onFilesChange(fileList: FileList) {
     this.fileList = fileList;
+    this.loading = true;
     this.uploadService.pushFileToStorage( this.fileList[0] ).subscribe(
       data => {
         this.requerimiento = data;
@@ -42,6 +43,7 @@ export class TagsGeneratorComponent {
       });
 
     this.fileList = null;
+    this.loading = false;
   }
   copyToClipboard(textoFinal) {
     textoFinal.select();
@@ -102,8 +104,6 @@ export class TagsGeneratorComponent {
     return textoFinalFormateado;
   }
   validaTag(forma: NgForm) {
-
-    console.log("Usuario:", this.requerimiento);
 
     this.copied = false;
     this.INITagCopied = false;

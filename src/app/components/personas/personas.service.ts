@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { AppSettings } from '../../app.settings';
 
 @Injectable()
 export class PersonasService {
-  private urlEndpoint:string = 'http://164.96.96.40:8080/RestAPITest/api/personas/';
+  private urlEndpoint:string = AppSettings.API_ENDPOINT +'personas/';
   personas: any[] = [];
   constructor(private http: HttpClient) { }
   
