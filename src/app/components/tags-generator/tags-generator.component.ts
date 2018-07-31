@@ -3,7 +3,8 @@ import { AlertService } from 'ngx-alerts';
 import { NgForm } from '@angular/forms';
 import { Requerimiento } from '../modelos/requerimiento';
 import { TagsGeneratorService } from './tags-generator.service';
-import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
+
+
 @Component({
   selector: 'app-tags-generator',
   templateUrl: './tags-generator.component.html',
@@ -31,27 +32,14 @@ export class TagsGeneratorComponent {
     usuarioCliente: null
   }
 
-  async onFilesChange(fileList: FileList) {
+  onFilesChange(fileList: FileList) {
     this.fileList = fileList;
-
-    /*
-    this.uploadService.pushFileToStorage(this.fileList[0]).subscribe(event => {
-      console.log("event"+ event);
-    })
-    */
-
-    let result: any;
-    this.uploadService.getObserver()
-      .subscribe(progress => {
-        this.percentage = progress;
+    this.uploadService.pushFileToStorage( this.fileList[0] ).subscribe(
+      data => {
+        this.requerimiento = data;
+      },error=> {
+        this.alertService.danger('Ocurrió un error.');
       });
-
-    try {
-      result = await this.uploadService.pushFileToStorage(this.fileList[0]);
-    } catch (error) {
-      document.write(error)
-    }
-    console.log("Result:[" + result + "]");
 
     this.fileList = null;
   }

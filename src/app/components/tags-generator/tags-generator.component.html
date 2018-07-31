@@ -46,7 +46,7 @@
       <div class="col-md-3">
         <label class="mr-1">Fecha Requerimiento: </label>
         <input type="date" [(ngModel)]="requerimiento.fechaInicio" name="fechaInicio" class="form-control mb-2 mr-sm-2" #fechaInicio="ngModel"
-          minlength="10" maxlength="10" required ng-model="todayDate | date:'dd-MM-yyyy'">
+          minlength="10" maxlength="10" required>
         <div class="text-warning" *ngIf="fechaInicio.errors?.required && fechaInicio.dirty">
           Este campo es requerido.
         </div>
@@ -81,7 +81,7 @@
       <div class="col-md-9">
         <label class="mr-1">Descripción del Requerimiento: </label>
         <textarea [(ngModel)]="requerimiento.descripcionRequerimiento" name="descripcionRequerimiento" class="form-control" rows="3"
-          #descripcionRequerimiento="ngModel" minlength="5" maxlength="300" required></textarea>
+          #descripcionRequerimiento="ngModel" minlength="5"  required></textarea>
         <div class="text-warning" *ngIf="descripcionRequerimiento.errors?.required && descripcionRequerimiento.dirty">
           Este campo es requerido.
         </div>

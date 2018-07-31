@@ -11,6 +11,7 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
+
 // Import your library
 import { AlertModule } from 'ngx-alerts';
 
@@ -22,6 +23,7 @@ import { PersonasComponent } from './components/personas/personas.component';
 import { PersonasService } from './components/personas/personas.service';
 import { DragndropDirective } from './directives/dragndrop.directive';
 import { TagsGeneratorService } from './components/tags-generator/tags-generator.service';
+import { Http, HttpModule } from '@angular/http';
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import { TagsGeneratorService } from './components/tags-generator/tags-generator
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    HttpModule,
     FormsModule,
     AlertModule.forRoot({maxMessages: 3, timeout: 5000}),
     APP_ROUTING

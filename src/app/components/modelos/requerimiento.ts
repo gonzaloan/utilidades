@@ -4,5 +4,5 @@ export class Requerimiento{
     fechaInicio:string;
     nroRequerimiento:string;
     responsable:string;
-    usuarioCliente:string
+    usuarioCliente:string;
 }
