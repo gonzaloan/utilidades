@@ -1,40 +1,97 @@
+<app-loading *ngIf="loading"></app-loading>
 <div class="container mt-5">
   <h3>Si debes generar un tag para comentar tu aplicación.
     <small class="text-muted">Abajo se mostrará el resultado</small>
   </h3>
-
   <hr>
-  <form (ngSubmit)="validaTag(usuarioCliente,nroRequerimiento,empresaResponsable,responsable,descripcionRequerimiento,fechaInicio)"> 
+  <form (ngSubmit)="validaTag(forma)" #forma="ngForm" novalidate="">
     <div class="row">
+      <div class="dropzone" appDragndrop (filesChangeEmiter)="onFilesChange($event)">
+        <div class="text-wrapper">
+          <div class="centered">Arrastra el archivo de requerimiento aquí</div>
+        </div>
+      </div>
+      <div class="dropzone-list">
+        <ul>
+          <li *ngFor="let file of fileList">
+            {{file.name}}
+            {{percentage}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row mt-5">
       <div class="col-md-3">
         <label class="mr-1">Identificador Requerimiento: </label>
-        <input type="text" ng-model="nroReq" class="form-control mb-2 mr-sm-2" #nroRequerimiento required minlength="5" maxlength="9" placeholder="Ej 0666_2015">
+        <input type="text" [(ngModel)]="requerimiento.nroRequerimiento" name="nroRequerimiento" class="form-control mb-2 mr-sm-2"
+          #nroRequerimiento="ngModel" required minlength="5" maxlength="9" placeholder="Ej 0666_2015">
+        <div class="text-warning" *ngIf="nroRequerimiento.errors?.required && nroRequerimiento.dirty">
+          Este campo es requerido.
+        </div>
+        <div class="text-warning" *ngIf="nroRequerimiento.errors?.minlength && nroRequerimiento.dirty">
+          Debe tener mínimo {{nroRequerimiento.errors.minlength.requiredLength}} caracteres.
+        </div>
       </div>
       <div class="col-md-3">
         <label class="mr-1">Usuario Cliente: </label>
-        <input type="text" class="form-control mb-2 mr-sm-2" #usuarioCliente required  minlength="5" maxlength="30" placeholder="Pedrito Pedreros">
+        <input type="text" [(ngModel)]="requerimiento.usuarioCliente" name="usuarioCliente" class="form-control mb-2 mr-sm-2" #usuarioCliente="ngModel"
+          required minlength="5" maxlength="30" placeholder="Pedrito Pedreros">
+        <div class="text-warning" *ngIf="usuarioCliente.errors?.required && usuarioCliente.dirty">
+          Este campo es requerido.
+        </div>
+        <div class="text-warning" *ngIf="usuarioCliente.errors?.minlength && usuarioCliente.dirty">
+          Debe tener mínimo {{usuarioCliente.errors.minlength.requiredLength}} caracteres.
+        </div>
       </div>
       <div class="col-md-3">
         <label class="mr-1">Fecha Requerimiento: </label>
-        <input type="date" class="form-control mb-2 mr-sm-2" #fechaInicio minlength="10" maxlength="10" required ng-model="todayDate | date:'dd-MM-yyyy'">
+        <input type="date" [(ngModel)]="requerimiento.fechaInicio" name="fechaInicio" class="form-control mb-2 mr-sm-2" #fechaInicio="ngModel"
+          minlength="10" maxlength="10" required ng-model="todayDate | date:'dd-MM-yyyy'">
+        <div class="text-warning" *ngIf="fechaInicio.errors?.required && fechaInicio.dirty">
+          Este campo es requerido.
+        </div>
+        <div class="text-warning" *ngIf="fechaInicio.errors?.minlength && fechaInicio.dirty">
+          Debe tener mínimo {{fechaInicio.errors.minlength.requiredLength}} caracteres.
+        </div>
       </div>
       <div class="col-md-3">
         <label class="mr-1">Responsable: </label>
-        <input type="text" class="form-control mb-2 mr-sm-2" #responsable minlength="5" maxlength="30" required placeholder="Yo">
+        <input type="text" [(ngModel)]="requerimiento.responsable" name="responsable" class="form-control mb-2 mr-sm-2" #responsable="ngModel"
+          minlength="5" maxlength="30" required placeholder="Yo">
+        <div class="text-warning" *ngIf="responsable.errors?.required && responsable.dirty">
+          Este campo es requerido.
+        </div>
+        <div class="text-warning" *ngIf="responsable.errors?.minlength && responsable.dirty">
+          Debe tener mínimo {{responsable.errors.minlength.requiredLength}} caracteres.
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-3">
         <label class="mr-1">Empresa del Responsable: </label>
-        <input type="text" class="form-control mb-2 mr-sm-2" #empresaResponsable minlength="4" maxlength="4" required value="ZEKE">
+        <input type="text" [(ngModel)]="requerimiento.empresaResponsable" name="empresaResponsable" class="form-control mb-2 mr-sm-2"
+          #empresaResponsable="ngModel" minlength="4" maxlength="4" required value="ZEKE">
+        <div class="text-warning" *ngIf="empresaResponsable.errors?.required && empresaResponsable.dirty">
+          Este campo es requerido.
+        </div>
+        <div class="text-warning" *ngIf="empresaResponsable.errors?.minlength && empresaResponsable.dirty">
+          Debe tener mínimo {{empresaResponsable.errors.minlength.requiredLength}} caracteres.
+        </div>
       </div>
       <div class="col-md-9">
         <label class="mr-1">Descripción del Requerimiento: </label>
-        <textarea class="form-control" rows="3" #descripcionRequerimiento minlength="5" maxlength="300" required></textarea>
+        <textarea [(ngModel)]="requerimiento.descripcionRequerimiento" name="descripcionRequerimiento" class="form-control" rows="3"
+          #descripcionRequerimiento="ngModel" minlength="5" maxlength="300" required></textarea>
+        <div class="text-warning" *ngIf="descripcionRequerimiento.errors?.required && descripcionRequerimiento.dirty">
+          Este campo es requerido.
+        </div>
+        <div class="text-warning" *ngIf="descripcionRequerimiento.errors?.minlength && descripcionRequerimiento.dirty">
+          Debe tener mínimo {{descripcionRequerimiento.errors.minlength.requiredLength}} caracteres.
+        </div>
       </div>
     </div>
     <div class="row center mt-5 ml-5 mr-5 mb-5">
-      <button type="submit" class="btn btn-primary btn-block mb-2" >Generar Tag</button>
+      <button type="submit" class="btn btn-primary btn-block mb-2" [disabled]="!forma.valid">Generar Tag</button>
     </div>
   </form>
   <hr class="mt-5">

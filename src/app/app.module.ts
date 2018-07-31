@@ -20,6 +20,8 @@ import { ValidarunPipe } from './pipes/validarun.pipe';
 import { TagsGeneratorComponent } from './components/tags-generator/tags-generator.component';
 import { PersonasComponent } from './components/personas/personas.component';
 import { PersonasService } from './components/personas/personas.service';
+import { DragndropDirective } from './directives/dragndrop.directive';
+import { TagsGeneratorService } from './components/tags-generator/tags-generator.service';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { PersonasService } from './components/personas/personas.service';
     LoadingComponent,
     ValidarunPipe,
     TagsGeneratorComponent,
-    PersonasComponent
+    PersonasComponent,
+    DragndropDirective
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,7 @@ import { PersonasService } from './components/personas/personas.service';
     AlertModule.forRoot({maxMessages: 3, timeout: 5000}),
     APP_ROUTING
   ],
-  providers: [PersonasService],
+  providers: [PersonasService, TagsGeneratorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PersonasService {
-  private urlEndpoint:string = 'http://localhost:8080/api/personas/';
+  private urlEndpoint:string = 'http://164.96.96.40:8080/RestAPITest/api/personas/';
   personas: any[] = [];
   constructor(private http: HttpClient) { }
   
@@ -25,6 +25,7 @@ export class PersonasService {
     }
     let url = `${this.urlEndpoint}filter?nacionalidad=${nacionalidad}&estado_civil=${estadoCivil}`;
     console.log(url);
+    
     return this.http.get(url)
       .pipe( map( data => {
         return data;

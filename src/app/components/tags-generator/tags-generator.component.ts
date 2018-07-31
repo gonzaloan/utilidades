@@ -1,23 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertService } from 'ngx-alerts';
+import { NgForm } from '@angular/forms';
+import { Requerimiento } from '../modelos/requerimiento';
+import { TagsGeneratorService } from './tags-generator.service';
+import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 @Component({
   selector: 'app-tags-generator',
   templateUrl: './tags-generator.component.html',
   styleUrls: ['./tags-generator.component.css']
 })
-export class TagsGeneratorComponent implements OnInit {
+export class TagsGeneratorComponent {
 
+  percentage: number;
   tagRequerimiento: string;
   textoFinal: string;
   copied: boolean = false;
   INITag: string;
   INITagCopied: boolean = false;
-  constructor(private alertService: AlertService) { }
+  private fileList: any = [];
 
-  ngOnInit() {
 
+  constructor(private alertService: AlertService, private uploadService: TagsGeneratorService) { }
+
+  requerimiento: Requerimiento = {
+    descripcionRequerimiento: null,
+    empresaResponsable: "ZEKE",
+    fechaInicio: null,
+    nroRequerimiento: null,
+    responsable: null,
+    usuarioCliente: null
   }
 
+  async onFilesChange(fileList: FileList) {
+    this.fileList = fileList;
+
+    /*
+    this.uploadService.pushFileToStorage(this.fileList[0]).subscribe(event => {
+      console.log("event"+ event);
+    })
+    */
+
+    let result: any;
+    this.uploadService.getObserver()
+      .subscribe(progress => {
+        this.percentage = progress;
+      });
+
+    try {
+      result = await this.uploadService.pushFileToStorage(this.fileList[0]);
+    } catch (error) {
+      document.write(error)
+    }
+    console.log("Result:[" + result + "]");
+
+    this.fileList = null;
+  }
   copyToClipboard(textoFinal) {
     textoFinal.select();
     document.execCommand("copy");
@@ -76,8 +113,10 @@ export class TagsGeneratorComponent implements OnInit {
     }
     return textoFinalFormateado;
   }
-  validaTag(usuarioCliente, requerimientoInput, empresaResponsable, responsable, descripcion, fechaInicio) {
-    
+  validaTag(forma: NgForm) {
+
+    console.log("Usuario:", this.requerimiento);
+
     this.copied = false;
     this.INITagCopied = false;
     const OPENTAG = "/*";
@@ -85,20 +124,20 @@ export class TagsGeneratorComponent implements OnInit {
     const CHAR_ASTERISCO = "*";
     const SALTO_LINEA = "\n*";
     const LINEA_REG_MANTENCION = " REGISTRO DE MANTENCION.";
-    const LINEA_RESPONSABLE = " RESPONSABLE REGISTRO   : " + this.capitalizeName(usuarioCliente.value) + " / REQ: " + requerimientoInput.value.toUpperCase() + " / FECHA: " + fechaInicio.value.toLocaleString();
-    const LINEA_RESPONSABLE_NOS = " RESPONSABLE " + empresaResponsable.value.toUpperCase() + "    : " + responsable.value.toUpperCase();
-    const INICIALES = this.getIniciales(responsable.value).toUpperCase();
+    const LINEA_RESPONSABLE = " RESPONSABLE REGISTRO   : " + this.capitalizeName(this.requerimiento.usuarioCliente) + " / REQ: " + this.requerimiento.nroRequerimiento.toUpperCase() + " / FECHA: " + this.requerimiento.fechaInicio.toLocaleString();
+    const LINEA_RESPONSABLE_NOS = " RESPONSABLE " + this.requerimiento.empresaResponsable.toUpperCase() + "    : " + this.requerimiento.responsable.toUpperCase();
+    const INICIALES = this.getIniciales(this.requerimiento.responsable).toUpperCase();
     this.textoFinal =
       OPENTAG + SALTO_LINEA +
       this.fillWithChar(92, CHAR_ASTERISCO) + SALTO_LINEA +
       this.fillWithChar(92, " ", LINEA_REG_MANTENCION) + SALTO_LINEA +
       this.fillWithChar(92, " ", LINEA_RESPONSABLE) + SALTO_LINEA +
       this.fillWithChar(92, " ", LINEA_RESPONSABLE_NOS) + SALTO_LINEA +
-      this.setDescriptionInLines(92, descripcion.value) +
+      this.setDescriptionInLines(92, this.requerimiento.descripcionRequerimiento) +
       this.fillWithChar(92, CHAR_ASTERISCO) + SALTO_LINEA + CLOSETAG;
 
 
-    this.INITag = '//INI//' + 'REQ: ' + requerimientoInput.value.toUpperCase() + '//' + INICIALES + '//' + fechaInicio.value.toLocaleString();
+    this.INITag = '//INI//' + 'REQ: ' + this.requerimiento.nroRequerimiento.toUpperCase() + '//' + INICIALES + '//' + this.requerimiento.fechaInicio.toLocaleString();
   }
 
 

@@ -7,3 +7,41 @@
     font-size: 0.3em;
     font-style: italic;
 }
+.dropzone {
+    min-height: 80px;
+    min-width: 80px;
+    display: table;
+    width: 100%;
+    background-color: #eee;
+    border: dotted 1px #aaa;
+}
+.ng-invalid.ng-touched:not(form) {
+    border: 1px solid red;
+}
+.ng-valid.ng-touched:not(form) {
+    border: 1px solid green;
+}
+.text-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+  
+.centered {
+    font-style: italic;
+    font-size: 1em;
+    font-weight: bold;
+    text-align:center;
+}
+.dropzone-list > ul {
+    width: 30%;
+    list-style: none;
+  }
+  .dropzone-list > ul > li:before {
+    content : '+';
+    color: #6def9a;
+  }
+  .dropzone-list > ul > li {
+    border: 1px solid black;
+    padding-bottom: 5px;
+    padding-left: 10px;
+  }
