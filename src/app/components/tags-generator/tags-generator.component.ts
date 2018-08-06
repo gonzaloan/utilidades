@@ -18,11 +18,9 @@ export class TagsGeneratorComponent {
   copied: boolean = false;
   INITag: string;
   INITagCopied: boolean = false;
-  private fileList: any = [];
+  fileList: any = [];
 
-
-  constructor(private alertService: AlertService, private uploadService: TagsGeneratorService) { }
-
+  
   requerimiento: Requerimiento = {
     descripcionRequerimiento: null,
     empresaResponsable: "ZEKE",
@@ -32,9 +30,17 @@ export class TagsGeneratorComponent {
     usuarioCliente: null
   }
 
+  constructor(private alertService: AlertService, private uploadService: TagsGeneratorService, private tagsService: TagsGeneratorService) { 
+    this.requerimiento= this.tagsService.getFromLocal("requerimiento") == null? null:this.tagsService.getFromLocal("requerimiento");
+  }
+
+  
+
   onFilesChange(fileList: FileList) {
-    this.fileList = fileList;
     this.loading = true;
+
+    this.fileList = fileList;
+    
     this.uploadService.pushFileToStorage( this.fileList[0] ).subscribe(
       data => {
         this.requerimiento = data;
@@ -126,6 +132,7 @@ export class TagsGeneratorComponent {
 
 
     this.INITag = '//INI//' + 'REQ: ' + this.requerimiento.nroRequerimiento.toUpperCase() + '//' + INICIALES + '//' + this.requerimiento.fechaInicio.toLocaleString();
+    this.tagsService.saveInLocal("requerimiento",this.requerimiento);
   }
 
 
@@ -141,4 +148,7 @@ export class TagsGeneratorComponent {
     return name;
 
   }
+
+
+
 }

@@ -10,7 +10,7 @@ import { NotfoundComponent } from './components/shared/notfound/notfound.compone
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-
+import { StorageServiceModule, SESSION_STORAGE } from 'angular-webstorage-service';
 
 // Import your library
 import { AlertModule } from 'ngx-alerts';
@@ -22,8 +22,8 @@ import { TagsGeneratorComponent } from './components/tags-generator/tags-generat
 import { PersonasComponent } from './components/personas/personas.component';
 import { PersonasService } from './components/personas/personas.service';
 import { DragndropDirective } from './directives/dragndrop.directive';
+import { HttpModule } from '@angular/http';
 import { TagsGeneratorService } from './components/tags-generator/tags-generator.service';
-import { Http, HttpModule } from '@angular/http';
 
 
 @NgModule({
@@ -46,9 +46,13 @@ import { Http, HttpModule } from '@angular/http';
     HttpModule,
     FormsModule,
     AlertModule.forRoot({maxMessages: 3, timeout: 5000}),
-    APP_ROUTING
+    APP_ROUTING,
+    StorageServiceModule
   ],
-  providers: [PersonasService, TagsGeneratorService],
+  providers: [
+    PersonasService,
+    TagsGeneratorService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

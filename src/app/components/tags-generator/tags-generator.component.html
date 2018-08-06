@@ -4,7 +4,6 @@
     <small class="text-muted">Abajo se mostrará el resultado</small>
   </h3>
   <hr>
-  <app-loading *ngIf="loading"></app-loading>
   <form (ngSubmit)="validaTag(forma)" #forma="ngForm" novalidate="">
     <div class="row">
       <div class="dropzone" appDragndrop (filesChangeEmiter)="onFilesChange($event)">
@@ -16,7 +15,6 @@
         <ul>
           <li *ngFor="let file of fileList">
             {{file.name}}
-            {{percentage}}
           </li>
         </ul>
       </div>

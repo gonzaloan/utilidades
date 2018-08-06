@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AlertService } from 'ngx-alerts';
 import { fadeAnimation } from './_animations/fadein.animations';
 
@@ -9,6 +9,10 @@ import { fadeAnimation } from './_animations/fadein.animations';
   animations: [fadeAnimation] // register the animation
 })
 export class AppComponent {
-  constructor(private alertService: AlertService) { }
 
+  constructor(private alertService: AlertService) { 
+
+  }
+
+  
 }
