@@ -42,8 +42,8 @@ export class TagsGeneratorService {
 
    
   getFromLocal(key): Requerimiento {
-    console.log('recieved= key: [' + key+ ']');
-    this.requerimiento= this.storage.get(key);
+    
+    this.requerimiento= this.storage.get(key) == null ? this.requerimiento: this.storage.get(key);
     console.log(this.requerimiento);
     return this.requerimiento;
  }
